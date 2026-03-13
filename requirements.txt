@@ -1,0 +1,14 @@
+streamlit
+pandas
+folium
+streamlit-folium
+scikit-learn
+matplotlib
+pgeocode
+requests
+EOF 
+cat > .gitignore << EOF
+*.zip
+__pycache__/
+.DS_Store
+EOF 
