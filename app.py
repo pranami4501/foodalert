@@ -149,54 +149,55 @@ with right_col:
     colors = {'Very High': '#ff4444', 'High': '#ff8800',
               'Medium': '#ffcc00', 'Low': '#1D9E75'}
 
-    fig, ax = plt.subplots(figsize=(6, 3.5))
+    fig, ax = plt.subplots(figsize=(6, 3.5), facecolor='#1a1a2e')
     bars = ax.barh(
-        risk_counts.index,
-        risk_counts.values,
-        color=[colors.get(i, '#888') for i in risk_counts.index],
-        edgecolor='white'
+       risk_counts.index,
+       risk_counts.values,
+       color=[colors.get(i, '#888') for i in risk_counts.index],
+       edgecolor='white'
     )
     for bar, val in zip(bars, risk_counts.values):
-        ax.text(val + 0.1, bar.get_y() + bar.get_height()/2,
-                str(val), va='center', fontsize=10)
-    ax.set_xlabel('Number of Tracts')
-    ax.set_title('Tracts by Risk Category')
+    	ax.text(val + 0.1, bar.get_y() + bar.get_height()/2,
+            str(val), va='center', fontsize=10, color='white')
+    ax.set_xlabel('Number of Tracts', color='white', fontsize=11)
+    ax.set_ylabel('Risk Category', color='white', fontsize=11)
+    ax.set_title('Tracts by Risk Category', color='white', fontsize=12,
+             fontweight='bold')
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    fig.patch.set_alpha(0)
-    ax.set_facecolor('none')
+    ax.spines['left'].set_color('#444')
+    ax.spines['bottom'].set_color('#444')
+    ax.set_facecolor('#1a1a2e')
     ax.tick_params(colors='white')
-    ax.xaxis.label.set_color('white')
-    ax.title.set_color('white')
     st.pyplot(fig)
 
     st.markdown("---")
 
     # Poverty vs risk scatter
     st.markdown("### Poverty Rate vs Risk Score")
-    fig2, ax2 = plt.subplots(figsize=(6, 3.5))
+    fig2, ax2 = plt.subplots(figsize=(6, 3.5), facecolor='#1a1a2e')
     scatter_colors = filtered['is_food_desert'].map(
-        {1: '#ff4444', 0: '#1D9E75'}
+    	{1: '#ff4444', 0: '#1D9E75'}
     )
     ax2.scatter(
-        filtered['poverty_rate'],
-        filtered['risk_score'],
-        c=scatter_colors, alpha=0.7, s=60, edgecolors='white', linewidth=0.5
+    	filtered['poverty_rate'],
+    	filtered['risk_score'],
+    	c=scatter_colors, alpha=0.7, s=60, edgecolors='white', linewidth=0.5
     )
-    ax2.set_xlabel('Poverty Rate (%)')
-    ax2.set_ylabel('Risk Score')
-    ax2.set_title('Poverty Rate vs Predicted Risk')
+    ax2.set_xlabel('Poverty Rate (%)', color='white', fontsize=11)
+    ax2.set_ylabel('Predicted Risk Score (0-1)', color='white', fontsize=11)
+    ax2.set_title('Poverty Rate vs Predicted Risk Score',
+              color='white', fontsize=12, fontweight='bold')
     red_patch   = mpatches.Patch(color='#ff4444', label='Food Desert')
     green_patch = mpatches.Patch(color='#1D9E75', label='Not Food Desert')
-    ax2.legend(handles=[red_patch, green_patch], fontsize=9)
+    legend = ax2.legend(handles=[red_patch, green_patch], fontsize=9,
+                    facecolor='#2a2a3e', labelcolor='white')
     ax2.spines['top'].set_visible(False)
     ax2.spines['right'].set_visible(False)
-    fig2.patch.set_alpha(0)
-    ax2.set_facecolor('none')
+    ax2.spines['left'].set_color('#444')
+    ax2.spines['bottom'].set_color('#444')
+    ax2.set_facecolor('#1a1a2e')
     ax2.tick_params(colors='white')
-    ax2.xaxis.label.set_color('white')
-    ax2.yaxis.label.set_color('white')
-    ax2.title.set_color('white')
     st.pyplot(fig2)
 
 st.markdown("---")
